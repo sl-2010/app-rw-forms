@@ -10,7 +10,9 @@ export default class App extends React.Component {
       username: '',
       password: '',
       repeatPassword: '',
-      country: "1"
+      country: "1",
+      gender: "",
+      agree: false
     }
   }
 
@@ -20,9 +22,16 @@ export default class App extends React.Component {
   }
 
   onChange = event => {
-    console.log("event target name", event.target.value)
+    console.log("event target name", event.target.value, event.target.checked)
     this.setState({
       [event.target.name]: event.target.value
+    });
+  };
+
+  onChangeAgree = event => {
+    console.log("event target name", event.target.value, event.target.checked)
+    this.setState({
+      [event.target.name]: event.target.checked
     });
   };
 
@@ -33,7 +42,7 @@ export default class App extends React.Component {
   )
 
   render() {
-    console.log(this)
+    // console.log(this)
 
     // const getOptionCountries = countries.map(country => {
     //   return (<option key={country.id} value={country.id}>
@@ -92,6 +101,55 @@ export default class App extends React.Component {
               {/* <option defaultValue="Country">Country</option> */}
               {this.getOptionItems(countries)}
             </select>
+          </div>
+          <div>Gender</div>
+          <div className="form-check-inline">
+            <label className="form-check-label">
+              <input type="radio"
+                className="form-check-input"
+                name="gender"
+                id="female"
+                value="female"
+                checked={this.state.gender === "female" ? "active" : ""}
+                onChange={this.onChange}
+              />Female
+            </label>
+          </div>
+          <div className="form-check-inline">
+            <label className="form-check-label">
+              <input type="radio"
+                className="form-check-input"
+                name="gender"
+                id="male"
+                value="male"
+                checked={this.state.gender === "male" ? "active" : ""}
+                onChange={this.onChange}
+              />Male
+            </label>
+          </div>
+          <div className="form-check-inline">
+            <label className="form-check-label">
+              <input type="radio"
+                className="form-check-input"
+                name="gender"
+                id="not binary"
+                value="not binary"
+                checked={this.state.gender === "not binary" ? "active" : ""}
+                onChange={this.onChange}
+              />Not binary
+            </label>
+          </div>
+          <div className="form-check">
+            <label className="form-check-label">
+              <input type="checkbox"
+                className="form-check-input"
+                value="true"
+                id="agree"
+                name="agree"
+                checked={this.state.agree}
+                onChange={this.onChangeAgree}
+              />I agree
+            </label>
           </div>
 
           <button type="submit" className="btn btn-primary w-100" onClick={this.onSubmit}>

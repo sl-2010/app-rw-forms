@@ -12,7 +12,8 @@ export default class App extends React.Component {
       repeatPassword: '',
       country: "1",
       gender: "",
-      agree: false
+      agree: false,
+      avatar: ""
     }
   }
 
@@ -22,17 +23,28 @@ export default class App extends React.Component {
   }
 
   onChange = event => {
-    console.log("event target name", event.target.value, event.target.checked)
+    console.log("event target name", event.target.value)
     this.setState({
       [event.target.name]: event.target.value
     });
   };
 
   onChangeAgree = event => {
-    console.log("event target name", event.target.value, event.target.checked)
+    console.log("event target checked",  event.target.checked)
     this.setState({
       [event.target.name]: event.target.checked
     });
+  };
+
+  onChangeAvatar = event => {
+    const reader = new FileReader()
+    reader.onload = event => {
+      this.setState({
+        avatar: event.target.result
+      });
+    };
+    reader.readAsDataURL(event.target.files[0])
+    console.log(event.target.files[0])
   };
 
   getOptionItems = (Items) => Items.map(item =>
@@ -139,6 +151,17 @@ export default class App extends React.Component {
               />Not binary
             </label>
           </div>
+
+          <div className="form-group">
+            <label className="form-group-label" htmlFor="customFileLang">Upload your avatar</label>
+            <input type="file"
+              className="form-group-input"
+              id="avatar"
+              name="avatar"
+              onChange={this.onChangeAvatar}
+            />
+          </div>
+
           <div className="form-check">
             <label className="form-check-label">
               <input type="checkbox"
@@ -148,7 +171,7 @@ export default class App extends React.Component {
                 name="agree"
                 checked={this.state.agree}
                 onChange={this.onChangeAgree}
-              />I agree
+              />I agree to process the data
             </label>
           </div>
 

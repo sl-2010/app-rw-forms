@@ -13,13 +13,42 @@ export default class App extends React.Component {
       country: "1",
       gender: "",
       agree: false,
-      avatar: ""
+      avatar: "",
+      errors: {},
+      age: "16"
     }
   }
 
   onSubmit = event => {
     event.preventDefault();
-    console.log(this.state)
+    const errors = {}
+    if (this.state.username.length < 5) {
+      errors.username = "Reqiured. Must be 5 characters or more"
+    }
+
+    if (this.state.password.length < 4) {
+      errors.password = "Reqiured. Must be 4 characters or more"
+    }
+
+    if (this.state.repeatPassword !== this.state.password) {
+      errors.repeatPassword = "Must be equal to password"
+    }
+
+    if (this.state.age < 18 ) {
+      errors.age = "You must be older 18"
+    }
+
+    if (Object.keys(errors).length > 0) {
+      this.setState({
+        errors: errors
+      })
+      console.log("errors", this.state.errors)
+    } else {
+      this.setState({
+        errors: {}
+      })
+      console.log("submit",this.state)
+    }
   }
 
   onChange = event => {
@@ -76,6 +105,7 @@ export default class App extends React.Component {
               name="username"
               onChange={this.onChange}
             />
+            { this.state.errors.username && (<div className="invalid-feedback"> {this.state.errors.username} </div>) }
           </div>
           <div className="form-group">
             <label>Password</label>
@@ -89,6 +119,8 @@ export default class App extends React.Component {
               onChange={this.onChange}
             />
           </div>
+          { this.state.errors.password ?
+            <div className="invalid-feedback"> {this.state.errors.password} </div> : null }
           <div className="form-group">
             <label>Repeat password</label>
             <input
@@ -100,6 +132,8 @@ export default class App extends React.Component {
               name="repeatPassword"
               onChange={this.onChange}
             />
+            { this.state.errors.repeatPassword ?
+              <div className="invalid-feedback"> {this.state.errors.repeatPassword} </div> : null }
           </div>
           <div className="form-group">
             <label htmlFor="country">Country</label>
@@ -153,6 +187,18 @@ export default class App extends React.Component {
           </div>
 
           <div className="form-group">
+            <label htmlFor="formControlRange">Age</label>
+              <input type="number"
+                className="form-control-range"
+                id="formControlRange"
+                name="age"
+                value={this.state.age}
+                onChange={this.onChange}
+              />
+            { this.state.errors.age && (<div className="invalid-feedback"> {this.state.errors.age} </div>) }
+          </div>
+
+          <div className="form-group">
             <label className="form-group-label" htmlFor="customFileLang">Upload your avatar</label>
             <input type="file"
               className="form-group-input"
@@ -175,7 +221,10 @@ export default class App extends React.Component {
             </label>
           </div>
 
-          <button type="submit" className="btn btn-primary w-100" onClick={this.onSubmit}>
+          <button type="submit"
+            className="btn btn-primary w-100"
+            onClick={this.onSubmit}
+          >
             Submit
           </button>
         </form>

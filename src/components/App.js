@@ -1,5 +1,6 @@
 import React from "react";
-import countries from "../data/countries"
+import countries from "../data/countries";
+import Field from "./Field"
 
 export default class App extends React.Component {
 
@@ -94,74 +95,53 @@ export default class App extends React.Component {
     return (
       <div className="form-container card">
         <form className="form card-body">
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter username"
-              ref={node => this.username = node}
-              value={this.state.username}
-              name="username"
-              onChange={this.onChange}
-            />
-            { this.state.errors.username && (<div className="invalid-feedback"> {this.state.errors.username} </div>) }
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter password"
-              ref={node => this.password = node}
-              value={this.state.password}
-              name="password"
-              onChange={this.onChange}
-            />
-          </div>
-          { this.state.errors.password ?
-            <div className="invalid-feedback"> {this.state.errors.password} </div> : null }
-          <div className="form-group">
-            <label>Repeat password</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter repeat password"
-              ref={node => this.repeatPassword = node}
-              value={this.state.repeatPassword}
-              name="repeatPassword"
-              onChange={this.onChange}
-            />
-            { this.state.errors.repeatPassword ?
-              <div className="invalid-feedback"> {this.state.errors.repeatPassword} </div> : null }
-          </div>
-          <div className="form-group">
-            <label htmlFor="country">Country</label>
-            <select
-              className="custom-select"
-              id="country"
-              value={this.state.country}
-              name="country"
-              onChange={this.onChange}
-            >
-              {/* <option defaultValue="Country">Country</option> */}
-              {this.getOptionItems(countries)}
-            </select>
-          </div>
+          <Field
+            labelText="Username"
+            id="username"
+            type="text"
+            placeholder="Enter username"
+            name="username"
+            value={this.state.username}
+            onChange={this.onChange}
+            error = {this.state.errors.username}
+          />
+
+          <Field
+            labelText="Password"
+            id="password"
+            type="password"
+            placeholder="Enter password"
+            name="password"
+            value={this.state.password}
+            onChange={this.onChange}
+            error = {this.state.errors.password}
+          />
+
+          <Field
+            labelText="Repeat password"
+            id="repeatPassword"
+            type="password"
+            placeholder="Enter repeat password"
+            name="repeatPassword"
+            value={this.state.repeatPassword}
+            onChange={this.onChange}
+            error = {this.state.errors.repeatPassword}
+          />
+
           <div>Gender</div>
-          <div className="form-check-inline">
-            <label className="form-check-label">
-              <input type="radio"
-                className="form-check-input"
-                name="gender"
-                id="female"
-                value="female"
-                checked={this.state.gender === "female" ? "active" : ""}
-                onChange={this.onChange}
-              />Female
-            </label>
-          </div>
-          <div className="form-check-inline">
+            <div className="form-check-inline">
+              <label className="form-check-label">
+                <input type="radio"
+                  className="form-check-input"
+                  name="gender"
+                  id="female"
+                  value="female"
+                  checked={this.state.gender === "female" ? "active" : ""}
+                  onChange={this.onChange}
+                />Female
+              </label>
+            </div>
+            <div className="form-check-inline">
             <label className="form-check-label">
               <input type="radio"
                 className="form-check-input"
@@ -184,6 +164,20 @@ export default class App extends React.Component {
                 onChange={this.onChange}
               />Not binary
             </label>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="country">Country</label>
+            <select
+              className="custom-select"
+              id="country"
+              value={this.state.country}
+              name="country"
+              onChange={this.onChange}
+            >
+              {/* <option defaultValue="Country">Country</option> */}
+              {this.getOptionItems(countries)}
+            </select>
           </div>
 
           <div className="form-group">

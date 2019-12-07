@@ -1,5 +1,6 @@
 import React from "react";
 import countries from "../data/countries";
+import cities from "../data/cities";
 import Field from "./Field"
 
 export default class App extends React.Component {
@@ -12,6 +13,7 @@ export default class App extends React.Component {
       password: '',
       repeatPassword: '',
       country: "1",
+      city: {},
       gender: "",
       agree: false,
       avatar: "",
@@ -54,6 +56,7 @@ export default class App extends React.Component {
 
   onChange = event => {
     console.log("event target name", event.target.value)
+    console.log("state country city", this.state.country, this.state.city)
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -177,6 +180,25 @@ export default class App extends React.Component {
             >
               {/* <option defaultValue="Country">Country</option> */}
               {this.getOptionItems(countries)}
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="city">City</label>
+            <select
+              className="custom-select"
+              id="city"
+              value={this.state.city}
+              name="city"
+              onChange={this.onChange}
+            >
+              {this.getOptionItems(Object.values(cities).filter(key => key["country"] === [this.state.country] ))}
+
+              {/* { Object.values(cities).map(cities =>
+                <option key={this.state.country} value={cities.id}>
+                {cities.name}
+                </option>
+              )} */}
             </select>
           </div>
 

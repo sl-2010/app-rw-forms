@@ -107,6 +107,7 @@ export default class App extends React.Component {
     console.log(this)
 
     // console.log(getOptionCountries)
+    const {country, city, mobile, email, gender, username, password, errors, repeatPassword, age, agree} = this.state
     return (
       <div className="form-container card">
         <form className="form card-body">
@@ -116,9 +117,9 @@ export default class App extends React.Component {
             type="text"
             placeholder="Enter username"
             name="username"
-            value={this.state.username}
+            value={username}
             onChange={this.onChange}
-            error={this.state.errors.username}
+            error={errors.username}
           />
 
           <Field
@@ -127,9 +128,9 @@ export default class App extends React.Component {
             type="password"
             placeholder="Enter password"
             name="password"
-            value={this.state.password}
+            value={password}
             onChange={this.onChange}
-            error={this.state.errors.password}
+            error={errors.password}
           />
 
           <Field
@@ -138,9 +139,9 @@ export default class App extends React.Component {
             type="password"
             placeholder="Enter repeat password"
             name="repeatPassword"
-            value={this.state.repeatPassword}
+            value={repeatPassword}
             onChange={this.onChange}
-            error={this.state.errors.repeatPassword}
+            error={errors.repeatPassword}
           />
 
           <div>Gender</div>
@@ -152,7 +153,7 @@ export default class App extends React.Component {
                 name="gender"
                 id="female"
                 value="female"
-                checked={this.state.gender === 'female' ? 'active' : ''}
+                checked={gender === 'female' ? 'active' : ''}
                 onChange={this.onChange}
               />
               Female
@@ -166,7 +167,7 @@ export default class App extends React.Component {
                 name="gender"
                 id="male"
                 value="male"
-                checked={this.state.gender === 'male' ? 'active' : ''}
+                checked={gender === 'male' ? 'active' : ''}
                 onChange={this.onChange}
               />
               Male
@@ -180,7 +181,7 @@ export default class App extends React.Component {
                 name="gender"
                 id="not binary"
                 value="not binary"
-                checked={this.state.gender === 'not binary' ? 'active' : ''}
+                checked={gender === 'not binary' ? 'active' : ''}
                 onChange={this.onChange}
               />
               Not binary
@@ -193,9 +194,9 @@ export default class App extends React.Component {
             type="text"
             placeholder="Enter email"
             name="email"
-            value={this.state.email}
+            value={email}
             onChange={this.onChange}
-            error={this.state.errors.email}
+            error={errors.email}
           />
 
           <Field
@@ -204,9 +205,9 @@ export default class App extends React.Component {
             type="number"
             placeholder="Mobile"
             name="mobile"
-            value={this.state.mobile}
+            value={mobile}
             onChange={this.onChange}
-            error={this.state.errors.mobile}
+            error={errors.mobile}
           />
 
           <div className="form-group">
@@ -214,7 +215,7 @@ export default class App extends React.Component {
             <select
               className="custom-select"
               id="country"
-              value={this.state.country}
+              value={country}
               name="country"
               onChange={this.onChange}
             >
@@ -228,19 +229,19 @@ export default class App extends React.Component {
             <select
               className="custom-select"
               id="city"
-              value={this.state.city}
+              value={city}
               name="city"
               onChange={this.onChange}
             >
               {Object.values(cities)
-                .filter(key => key['country'] === 2)
+                .filter(key => key['country'] === parseInt(country) )
                 .map(city => (
                   <option key={city.id} value={city.id}>
                     {city.name}
                   </option>
                 ))}
 
-              {/* {this.getOptionItems(Object.values(cities).filter(key => key["country"] === [this.state.country] ))} */}
+              {/* {this.getOptionItems(Object.values(cities).filter(key => key["country"] === [country] ))} */}
             </select>
           </div>
 
@@ -251,11 +252,11 @@ export default class App extends React.Component {
               className="form-control-range"
               id="formControlRange"
               name="age"
-              value={this.state.age}
+              value={age}
               onChange={this.onChange}
             />
-            {this.state.errors.age && (
-              <div className="invalid-feedback"> {this.state.errors.age} </div>
+            {errors.age && (
+              <div className="invalid-feedback"> {errors.age} </div>
             )}
           </div>
 
@@ -280,7 +281,7 @@ export default class App extends React.Component {
                 value="true"
                 id="agree"
                 name="agree"
-                checked={this.state.agree}
+                checked={agree}
                 onChange={this.onChangeAgree}
               />
               I agree to process the data
